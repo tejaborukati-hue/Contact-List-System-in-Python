@@ -29,8 +29,7 @@ Contact-List-System/
 1. Clone the repository:
 
 ```bash
-git clone
-https://github.com/your-username/Contact-List-System.git
+git clone https://github.com/tejaborukati-hue/Contact-List-System-in-Python.git
 ```
 
 2. Open the project folder.
