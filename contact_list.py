@@ -29,6 +29,7 @@ def view_contacts():
 
         print("\n--- Contact List ---")
         found = False
+
         for row in reader:
             print(f"Name : {row[0]}")
             print(f"Phone: {row[1]}")
@@ -48,6 +49,7 @@ def search_contact():
         next(reader)
 
         found = False
+
         for row in reader:
             if keyword in row[0].lower():
                 print("\nContact Found")
@@ -70,6 +72,7 @@ def delete_contact():
         header = next(reader)
 
         deleted = False
+
         for row in reader:
             if row[0].lower() != name:
                 contacts.append(row)
@@ -87,13 +90,48 @@ def delete_contact():
         print("Contact not found.")
 
 
+def update_contact():
+    name = input("Enter contact name to update: ").lower()
+
+    contacts = []
+
+    with open(FILE_NAME, "r") as file:
+        reader = csv.reader(file)
+        header = next(reader)
+
+        updated = False
+
+        for row in reader:
+            if row[0].lower() == name:
+                print("Enter new details")
+                new_name = input("New Name: ")
+                new_phone = input("New Phone: ")
+                new_email = input("New Email: ")
+
+                contacts.append([new_name, new_phone, new_email])
+                updated = True
+            else:
+                contacts.append(row)
+
+    with open(FILE_NAME, "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(header)
+        writer.writerows(contacts)
+
+    if updated:
+        print("Contact updated successfully!")
+    else:
+        print("Contact not found.")
+
+
 while True:
     print("\n===== Contact List System =====")
     print("1. Add Contact")
     print("2. View Contacts")
     print("3. Search Contact")
     print("4. Delete Contact")
-    print("5. Exit")
+    print("5. Update Contact")
+    print("6. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -110,6 +148,9 @@ while True:
         delete_contact()
 
     elif choice == "5":
+        update_contact()
+
+    elif choice == "6":
         print("Thank you!")
         break
 
